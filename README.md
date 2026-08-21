@@ -32,3 +32,6 @@ The hero uses the framed portrait at `images/akane-hero-frame.png`. The original
 | `images/akane-09.png` | Favorite Frames / Frame 01 | Most important or emotionally resonant image |
 | `images/akane-10.png` | Favorite Frames / Frame 02 | Personal favorite series image |
 | `images/akane-11.png` | Favorite Frames / Frame 03 | Favorite performance image |
+| `images/akane-13.png` | Scenes That Stay / 01 | The Breakthrough image study or performance frame |
+| `images/akane-14.png` | Scenes That Stay / 02 | The Research image or quiet observation detail |
+| `images/akane-15.png` | Scenes That Stay / 03 | The Stage Light image or spotlight performance frame |

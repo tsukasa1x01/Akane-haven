@@ -23,7 +23,7 @@
 
         <a
             class="return-link"
-            href="../KURUMII/index.html">
+            href="../Kurumin/">
             &larr; KURUMII COLLECTIVE
         </a>
 
@@ -168,17 +168,9 @@
 
                 <div class="profile-card">
 
-                    <span class="profile-mark">
-                        A
-                    </span>
-
-                    <p>
-                        OSHI NO KO
-                    </p>
-
-                    <small>
-                        LALA LAI / STAGE NOTES
-                    </small>
+                    <div class="profile-photo" aria-label="Profile portrait of Kurokawa Akane">
+                        <img src="images/akane-12.png" alt="Kurokawa Akane profile portrait">
+                    </div>
 
                 </div>
 
@@ -252,26 +244,53 @@
             <div class="scene-timeline">
 
                 <details class="scene-entry" open>
-                    <summary><span>01</span><strong>THE BREAKTHROUGH</strong><em>EXPAND</em></summary>
+                    <summary>
+                        <span>01</span>
+                        <strong>THE BREAKTHROUGH</strong>
+                        <em>EXPAND</em>
+                    </summary>
                     <div class="scene-detail">
-                        <div class="scene-art scene-art-one">01</div>
-                        <p>That first performance where Akane's ability to read a character becomes impossible to ignore.</p>
+                        <div class="scene-art scene-art-one" aria-label="The Breakthrough image container">
+                            <span class="scene-art-label">01</span>
+                        </div>
+                        <div class="scene-copy">
+                            <small class="scene-tag">MEMORY / 01</small>
+                            <p>That first performance where Akane's ability to read a character becomes impossible to ignore.</p>
+                        </div>
                     </div>
                 </details>
 
                 <details class="scene-entry">
-                    <summary><span>02</span><strong>THE RESEARCH</strong><em>EXPAND</em></summary>
+                    <summary>
+                        <span>02</span>
+                        <strong>THE RESEARCH</strong>
+                        <em>EXPAND</em>
+                    </summary>
                     <div class="scene-detail">
-                        <div class="scene-art scene-art-two">02</div>
-                        <p>The small gesture, borrowed rhythm, or quiet observation that makes the whole performance feel lived in.</p>
+                        <div class="scene-art scene-art-two" aria-label="The Research image container">
+                            <span class="scene-art-label">02</span>
+                        </div>
+                        <div class="scene-copy">
+                            <small class="scene-tag">STUDY / 02</small>
+                            <p>The small gesture, borrowed rhythm, or quiet observation that makes the whole performance feel lived in.</p>
+                        </div>
                     </div>
                 </details>
 
                 <details class="scene-entry">
-                    <summary><span>03</span><strong>THE STAGE LIGHT</strong><em>EXPAND</em></summary>
+                    <summary>
+                        <span>03</span>
+                        <strong>THE STAGE LIGHT</strong>
+                        <em>EXPAND</em>
+                    </summary>
                     <div class="scene-detail">
-                        <div class="scene-art scene-art-three">03</div>
-                        <p>The performance that makes the room feel larger than the story, even after the scene has ended.</p>
+                        <div class="scene-art scene-art-three" aria-label="The Stage Light image container">
+                            <span class="scene-art-label">03</span>
+                        </div>
+                        <div class="scene-copy">
+                            <small class="scene-tag">GLARE / 03</small>
+                            <p>The performance that makes the room feel larger than the story, even after the scene has ended.</p>
+                        </div>
                     </div>
                 </details>
 
@@ -577,6 +596,10 @@
                     <h2>HAVEN<br>SOUNDTRACK</h2>
                 </div>
                 <div class="player-copy">
+                    <div class="soundtrack-cover soundtrack-cover--reel" aria-hidden="true">
+                        <span id="cover-kicker">REEL</span>
+                        <strong id="cover-index">01</strong>
+                    </div>
                     <span class="player-label">AKANE HAVEN //</span>
                     <strong id="track-title">MEPHISTO</strong>
                     <small id="track-artist">QUEEN BEE / LOCAL REEL</small>
@@ -587,7 +610,7 @@
                     </div>
                     <div class="progress-track"><span id="progress-bar"></span></div>
                     <audio id="soundtrack-audio" preload="none"></audio>
-                    <small class="audio-note">ADD YOUR OWN AUDIO FILES IN MEDIA/ TO COMPLETE THE REEL.</small>
+                    <div id="soundtrack-embed" class="soundtrack-embed" aria-live="polite"></div>
                 </div>
             </div>
         </section>
@@ -616,56 +639,43 @@
 
                 </div>
 
-                <p class="section-lead">
-                    Add official videos, music, AMVs, and links
-                    without bundling copyrighted media files.
-                </p>
-
             </div>
 
 
             <div class="media-grid">
 
-                <a
-                    href="<paste your YouTube link here>"
-                    class="media-card"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
+                <div class="media-card">
                     <span>
                         YOUTUBE
                     </span>
-
+                    <iframe
+                        src="https://www.youtube.com/embed/n6yoRD7LUmk?si=IR9SzggO9NdHPeLA"
+                        title="Akane Haven YouTube reference"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
                     <strong>
-                        ADD A PERFORMANCE LINK
+                        PERFORMANCE REFERENCE
                     </strong>
+                </div>
 
-                    <small>
-                        External link &rarr;
-                    </small>
-
-                </a>
-
-
-                <a
-                    href="<paste your Spotify link here>"
-                    class="media-card"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
+                <div class="media-card">
                     <span>
                         SPOTIFY
                     </span>
-
+                    <iframe
+                        src="https://open.spotify.com/embed/track/4CXTnisQPu4vcyfbmxnKEx?utm_source=generator"
+                        title="Akane Haven Spotify reference"
+                        loading="lazy"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                     <strong>
-                        ADD A SCENE OST
+                        TRACK REFERENCE
                     </strong>
-
-                    <small>
-                        External link &rarr;
-                    </small>
-
-                </a>
+                </div>
 
             </div>
 

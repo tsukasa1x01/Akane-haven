@@ -35,19 +35,47 @@ const soundtrackToggle = document.querySelector('#soundtrack-toggle');
 const trackTitle = document.querySelector('#track-title');
 const trackArtist = document.querySelector('#track-artist');
 const progressBar = document.querySelector('#progress-bar');
+const soundtrackEmbed = document.querySelector('#soundtrack-embed');
+const soundtrackCover = document.querySelector('.soundtrack-cover');
+const coverIndex = document.querySelector('#cover-index');
+const coverKicker = document.querySelector('#cover-kicker');
 const tracks = [
-    { title: 'MEPHISTO', artist: 'QUEEN BEE / LOCAL REEL' },
-    { title: 'BLUE HOUR STUDY', artist: 'AKANE HAVEN / AMBIENT REEL' }
+    { title: 'MEPHISTO', artist: 'QUEEN BEE / LOCAL REEL', label: 'REEL', embed: '' },
+    { title: 'BLUE HOUR STUDY', artist: 'AKANE HAVEN / AMBIENT REEL', label: 'SONG', embed: 'https://open.spotify.com/embed/track/4CXTnisQPu4vcyfbmxnKEx?utm_source=generator' }
 ];
 let selectedTrack = 0;
 let soundtrackPlaying = false;
+
+const renderSoundtrackEmbed = () => {
+    const activeTrack = tracks[selectedTrack];
+
+    if (activeTrack.embed) {
+        const autoplay = soundtrackPlaying ? '&autoplay=true' : '';
+        soundtrackEmbed.innerHTML = `
+            <iframe
+                src="${activeTrack.embed}${autoplay}"
+                title="Akane Haven soundtrack track"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        `;
+        return;
+    }
+
+    soundtrackEmbed.innerHTML = '<div class="soundtrack-embed-placeholder">LOCAL REEL / TRACK 01</div>';
+};
 
 const setTrack = (trackIndex) => {
     selectedTrack = trackIndex;
     trackTitle.textContent = tracks[trackIndex].title;
     trackArtist.textContent = tracks[trackIndex].artist;
+    coverKicker.textContent = tracks[trackIndex].label;
+    coverIndex.textContent = String(trackIndex + 1).padStart(2, '0');
+    soundtrackCover.classList.toggle('soundtrack-cover--song', trackIndex === 1);
     document.querySelectorAll('.track-button').forEach((button, index) => button.classList.toggle('is-active', index === trackIndex));
     document.documentElement.style.setProperty('--accent-shift', trackIndex === 0 ? '134,205,209' : '105,124,169');
+    renderSoundtrackEmbed();
 };
 
 document.querySelectorAll('.track-button').forEach((button) => button.addEventListener('click', () => setTrack(Number(button.dataset.track))));
@@ -58,6 +86,7 @@ soundtrackToggle.addEventListener('click', () => {
     soundtrackToggle.setAttribute('aria-pressed', String(soundtrackPlaying));
     progressBar.style.width = soundtrackPlaying ? '62%' : '18%';
     document.body.classList.toggle('soundtrack-active', soundtrackPlaying);
+    renderSoundtrackEmbed();
 });
 setTrack(0);
 
