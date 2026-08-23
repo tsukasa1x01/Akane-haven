@@ -16,6 +16,17 @@ Expected route:
 
 Replace the placeholder media and image assets with materials you own or have permission to publish.
 
+## Soundtrack slots
+
+Add licensed audio files to `media/` using these filenames:
+
+| File | Track |
+| --- | --- |
+| `media/mephisto.mp3` | Mephisto |
+| `media/test-me.mp3` | Test Me |
+
+Track artwork uses `images/mephisto.jpg` and `images/test-me.jpg`.
+
 ## Artwork slots
 
 The hero uses the framed portrait at `images/akane-hero-frame.png`. The original transparent artwork remains at `images/akane-hero.png`. Replace the numbered PNG files below with the matching artwork:

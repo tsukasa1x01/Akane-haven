@@ -80,3 +80,33 @@
 @media (max-width:430px) { .scene-detail { padding-left:16px; }.scene-detail p { font-size:.95rem; }.observation-dialog { padding:30px 22px; } }
 .gallery-card img,.favorite-frame img { border-radius:14px; overflow:hidden; }
 .hero-art img { width:min(100%,560px); max-height:76vh; aspect-ratio:4/5; object-fit:cover; padding:10px; border:1px solid rgba(180,224,226,.72); border-radius:6px; background:linear-gradient(145deg,rgba(237,243,241,.2),rgba(32,104,120,.18)); box-shadow:0 0 0 5px rgba(7,17,21,.76),0 0 0 6px rgba(134,205,209,.25),24px 32px 48px rgba(0,0,0,.7); filter:saturate(.86) contrast(1.05); }
+
+.soundtrack-panel { grid-template-columns:minmax(180px,.8fr) minmax(0,1.2fr); align-items:center; }
+.soundtrack-heading,.player-copy { min-width:0; }
+.soundtrack-cover--reel { position:relative; width:180px; aspect-ratio:1; margin-bottom:24px; overflow:hidden; border:1px solid rgba(120,180,190,.3); background:#071115; }
+.soundtrack-cover--reel img { width:100%; height:100%; object-fit:cover; }
+.soundtrack-cover-overlay { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; padding:14px; background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent 45%,rgba(0,0,0,.7)); }
+.soundtrack-cover-overlay span { font-size:10px; letter-spacing:3px; }
+.soundtrack-cover-overlay strong { font-size:38px; letter-spacing:2px; }
+.player-copy { display:flex; flex-direction:column; align-items:flex-start; }
+.player-copy > #track-title { max-width:100%; margin-top:4px; font-size:clamp(1.4rem,3vw,2.1rem); letter-spacing:2px; overflow-wrap:anywhere; }
+.player-copy > #track-artist { max-width:100%; margin-top:5px; letter-spacing:1px; opacity:.65; overflow-wrap:anywhere; }
+.track-selector { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+.track-button { min-width:48px; min-height:40px; }
+.track-button:hover,.track-button.active,.track-button.is-active { background:rgba(120,180,190,.14); border-color:rgba(120,180,190,.7); }
+.play-button { margin-top:14px; }
+.progress-track { width:100%; max-width:100%; margin-top:22px; overflow:hidden; }
+.soundtrack-embed { width:100%; max-width:100%; }
+.soundtrack-embed iframe { max-width:100%; }
+
+@media (max-width:800px) {
+	.soundtrack-panel { grid-template-columns:1fr; gap:32px; }
+	.soundtrack-heading,.player-copy { width:100%; }
+	.soundtrack-cover--reel { width:min(180px,100%); }
+}
+
+@media (max-width:430px) {
+	.soundtrack-panel { padding:20px; }
+	.soundtrack-cover--reel { width:150px; }
+	.soundtrack-cover-overlay strong { font-size:32px; }
+}

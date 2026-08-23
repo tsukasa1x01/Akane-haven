@@ -590,30 +590,97 @@
 
 
         <section id="soundtrack" class="soundtrack haven-section">
-            <div class="soundtrack-panel">
-                <div>
-                    <p class="eyebrow">AMBIENT REEL / 06</p>
-                    <h2>HAVEN<br>SOUNDTRACK</h2>
-                </div>
-                <div class="player-copy">
-                    <div class="soundtrack-cover soundtrack-cover--reel" aria-hidden="true">
-                        <span id="cover-kicker">REEL</span>
-                        <strong id="cover-index">01</strong>
-                    </div>
-                    <span class="player-label">AKANE HAVEN //</span>
-                    <strong id="track-title">MEPHISTO</strong>
-                    <small id="track-artist">QUEEN BEE / LOCAL REEL</small>
-                    <div class="player-controls">
-                        <button class="track-button" type="button" data-track="0" aria-label="Play Mephisto">01</button>
-                        <button class="track-button" type="button" data-track="1" aria-label="Play Blue Hour Study">02</button>
-                        <button id="soundtrack-toggle" class="play-button" type="button" aria-pressed="false">PLAY</button>
-                    </div>
-                    <div class="progress-track"><span id="progress-bar"></span></div>
-                    <audio id="soundtrack-audio" preload="none"></audio>
-                    <div id="soundtrack-embed" class="soundtrack-embed" aria-live="polite"></div>
+
+    <div class="soundtrack-panel">
+
+        <div class="soundtrack-heading">
+            <p class="eyebrow">AMBIENT REEL / 06</p>
+            <h2>HAVEN<br>SOUNDTRACK</h2>
+            <p class="section-lead">
+                Two tracks kept close to the reel.
+            </p>
+        </div>
+
+        <div class="player-copy">
+
+            <div class="soundtrack-cover soundtrack-cover--reel">
+                <img
+                    id="soundtrack-cover"
+                    src="images/mephisto.jpg"
+                    alt="Mephisto album artwork">
+
+                <div class="soundtrack-cover-overlay">
+                    <span id="cover-kicker">REEL</span>
+                    <strong id="cover-index">01</strong>
                 </div>
             </div>
-        </section>
+
+            <div class="player-label">
+                AKANE HAVEN //
+            </div>
+
+            <strong id="track-title">
+                MEPHISTO
+            </strong>
+
+            <small id="track-artist">
+                QUEEN BEE / LOCAL REEL
+            </small>
+
+            <div class="track-selector">
+
+                <button
+                    class="track-button active"
+                    type="button"
+                    data-track="0"
+                    aria-label="Play Mephisto">
+                    01
+                </button>
+
+                <button
+                    class="track-button"
+                    type="button"
+                    data-track="1"
+                    aria-label="Play Test Me">
+                    02
+                </button>
+
+            </div>
+
+            <button
+                id="soundtrack-toggle"
+                class="play-button"
+                type="button"
+                aria-pressed="false">
+                PLAY
+            </button>
+
+            <div
+                class="progress-track"
+                role="progressbar"
+                aria-label="Track progress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0">
+                <span id="progress-bar"></span>
+            </div>
+
+            <audio
+                id="soundtrack-audio"
+                preload="metadata">
+            </audio>
+
+            <div
+                id="soundtrack-embed"
+                class="soundtrack-embed"
+                aria-live="polite">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 

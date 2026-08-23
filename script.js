@@ -35,39 +35,44 @@ const soundtrackToggle = document.querySelector('#soundtrack-toggle');
 const trackTitle = document.querySelector('#track-title');
 const trackArtist = document.querySelector('#track-artist');
 const progressBar = document.querySelector('#progress-bar');
+const progressTrack = document.querySelector('.progress-track');
+const soundtrackAudio = document.querySelector('#soundtrack-audio');
 const soundtrackEmbed = document.querySelector('#soundtrack-embed');
-const soundtrackCover = document.querySelector('.soundtrack-cover');
+const soundtrackCover = document.querySelector('#soundtrack-cover');
 const coverIndex = document.querySelector('#cover-index');
 const coverKicker = document.querySelector('#cover-kicker');
 const tracks = [
-    { title: 'MEPHISTO', artist: 'QUEEN BEE / LOCAL REEL', label: 'REEL', embed: '' },
-    { title: 'BLUE HOUR STUDY', artist: 'AKANE HAVEN / AMBIENT REEL', label: 'SONG', embed: 'https://open.spotify.com/embed/track/4CXTnisQPu4vcyfbmxnKEx?utm_source=generator' }
+    { title: 'MEPHISTO', artist: 'QUEEN BEE / LOCAL REEL', label: 'REEL', src: 'media/mephisto.mp3', cover: 'images/mephisto.jpg' },
+    { title: 'TEST ME', artist: 'AKANE HAVEN / AMBIENT REEL', label: 'SONG', src: 'media/test-me.mp3', cover: 'images/test-me.jpg' }
 ];
 let selectedTrack = 0;
 let soundtrackPlaying = false;
 
-const renderSoundtrackEmbed = () => {
-    const activeTrack = tracks[selectedTrack];
+const updatePlaybackUi = () => {
+    const hasDuration = Number.isFinite(soundtrackAudio.duration) && soundtrackAudio.duration > 0;
+    const progress = hasDuration ? (soundtrackAudio.currentTime / soundtrackAudio.duration) * 100 : 0;
 
-    if (activeTrack.embed) {
-        const autoplay = soundtrackPlaying ? '&autoplay=true' : '';
-        soundtrackEmbed.innerHTML = `
-            <iframe
-                src="${activeTrack.embed}${autoplay}"
-                title="Akane Haven soundtrack track"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        `;
-        return;
-    }
-
-    soundtrackEmbed.innerHTML = '<div class="soundtrack-embed-placeholder">LOCAL REEL / TRACK 01</div>';
+    progressBar.style.width = `${progress}%`;
+    progressTrack.setAttribute('aria-valuenow', String(Math.round(progress)));
+    soundtrackToggle.textContent = soundtrackPlaying ? 'PAUSE' : 'PLAY';
+    soundtrackToggle.classList.toggle('is-playing', soundtrackPlaying);
+    soundtrackToggle.setAttribute('aria-pressed', String(soundtrackPlaying));
+    document.body.classList.toggle('soundtrack-active', soundtrackPlaying);
 };
 
-const setTrack = (trackIndex) => {
+const renderSoundtrackSource = () => {
+    soundtrackEmbed.innerHTML = `<div class="soundtrack-embed-placeholder">LOCAL REEL / TRACK ${String(selectedTrack + 1).padStart(2, '0')}</div>`;
+};
+
+const setTrack = async (trackIndex) => {
+    const shouldResume = soundtrackPlaying;
     selectedTrack = trackIndex;
+    soundtrackPlaying = false;
+    soundtrackAudio.pause();
+    soundtrackAudio.src = tracks[trackIndex].src;
+    soundtrackAudio.load();
+    soundtrackCover.src = tracks[trackIndex].cover;
+    soundtrackCover.alt = `${tracks[trackIndex].title} album artwork`;
     trackTitle.textContent = tracks[trackIndex].title;
     trackArtist.textContent = tracks[trackIndex].artist;
     coverKicker.textContent = tracks[trackIndex].label;
@@ -75,18 +80,55 @@ const setTrack = (trackIndex) => {
     soundtrackCover.classList.toggle('soundtrack-cover--song', trackIndex === 1);
     document.querySelectorAll('.track-button').forEach((button, index) => button.classList.toggle('is-active', index === trackIndex));
     document.documentElement.style.setProperty('--accent-shift', trackIndex === 0 ? '134,205,209' : '105,124,169');
-    renderSoundtrackEmbed();
+    renderSoundtrackSource();
+    updatePlaybackUi();
+
+    if (shouldResume) {
+        try {
+            await soundtrackAudio.play();
+            soundtrackPlaying = true;
+            updatePlaybackUi();
+        } catch (error) {
+            soundtrackPlaying = false;
+            updatePlaybackUi();
+        }
+    }
 };
 
 document.querySelectorAll('.track-button').forEach((button) => button.addEventListener('click', () => setTrack(Number(button.dataset.track))));
-soundtrackToggle.addEventListener('click', () => {
-    soundtrackPlaying = !soundtrackPlaying;
-    soundtrackToggle.textContent = soundtrackPlaying ? 'PAUSE' : 'PLAY';
-    soundtrackToggle.classList.toggle('is-playing', soundtrackPlaying);
-    soundtrackToggle.setAttribute('aria-pressed', String(soundtrackPlaying));
-    progressBar.style.width = soundtrackPlaying ? '62%' : '18%';
-    document.body.classList.toggle('soundtrack-active', soundtrackPlaying);
-    renderSoundtrackEmbed();
+soundtrackToggle.addEventListener('click', async () => {
+    if (soundtrackPlaying) {
+        soundtrackAudio.pause();
+        soundtrackPlaying = false;
+        updatePlaybackUi();
+        return;
+    }
+
+    try {
+        await soundtrackAudio.play();
+        soundtrackPlaying = true;
+        updatePlaybackUi();
+    } catch (error) {
+        soundtrackPlaying = false;
+        soundtrackEmbed.innerHTML = '<div class="soundtrack-embed-placeholder">ADD THE LOCAL AUDIO FILE TO PLAY</div>';
+        updatePlaybackUi();
+    }
+});
+progressTrack.addEventListener('click', (event) => {
+    if (!Number.isFinite(soundtrackAudio.duration) || soundtrackAudio.duration <= 0) return;
+    const bounds = progressTrack.getBoundingClientRect();
+    soundtrackAudio.currentTime = ((event.clientX - bounds.left) / bounds.width) * soundtrackAudio.duration;
+});
+soundtrackAudio.addEventListener('timeupdate', updatePlaybackUi);
+soundtrackAudio.addEventListener('loadedmetadata', updatePlaybackUi);
+soundtrackAudio.addEventListener('ended', () => {
+    soundtrackPlaying = false;
+    updatePlaybackUi();
+});
+soundtrackAudio.addEventListener('error', () => {
+    soundtrackPlaying = false;
+    soundtrackEmbed.innerHTML = '<div class="soundtrack-embed-placeholder">AUDIO FILE UNAVAILABLE</div>';
+    updatePlaybackUi();
 });
 setTrack(0);
 
